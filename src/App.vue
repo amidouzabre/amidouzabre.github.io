@@ -21,15 +21,27 @@ const form = ref({
   email: '',
   message: '',
 })
-const submitted = ref(false)
+
+function createComposeUrl(subject, body = '') {
+  const params = new URLSearchParams({
+    view: 'cm',
+    fs: '1',
+    to: profile.email,
+    su: subject,
+    body,
+  })
+
+  return `https://mail.google.com/mail/?${params.toString()}`
+}
+
+const contactComposeUrl = createComposeUrl('Contact Portfolio')
 
 function handleSubmit() {
-  const subject = encodeURIComponent(`Contact Portfolio — ${form.value.name}`)
-  const body = encodeURIComponent(
+  const subject = `Contact Portfolio — ${form.value.name}`
+  const body =
     `Nom : ${form.value.name}\nEmail : ${form.value.email}\n\nMessage :\n${form.value.message}`
-  )
-  window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
-  submitted.value = true
+
+  window.location.assign(createComposeUrl(subject, body))
 }
 </script>
 
@@ -273,7 +285,9 @@ function handleSubmit() {
                 github.com/amidouzabre
               </a>
               <a
-                :href="`mailto:${profile.email}`"
+                :href="contactComposeUrl"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="flex items-center gap-3 text-slate-300 transition hover:text-emerald-400"
               >
                 <Mail class="h-4 w-4 text-emerald-400" />
@@ -324,11 +338,11 @@ function handleSubmit() {
               class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 cursor-pointer"
             >
               <Send class="h-4 w-4" />
-              Envoyer le message
+              Préparer le message dans Gmail
             </button>
 
-            <p v-if="submitted" class="text-center text-xs text-emerald-400">
-              Votre client mail s'est ouvert avec votre message pré-rempli.
+            <p class="text-center text-xs text-slate-400">
+              Un brouillon Gmail prérempli va s'ouvrir. Vous pourrez le relire et l'envoyer depuis Gmail.
             </p>
           </form>
         </div>
