@@ -11,7 +11,7 @@ export const profile = {
   availability: 'Disponible pour missions & projets sur mesure',
   github: 'https://github.com/amidouzabre',
   agencyUrl: 'https://www.kwiizoo.com', // Remplacez par le domaine final de Sioori dès sa mise en ligne
-  email: 'contact@sioori.com',
+  email: 'amidou.zabre@gmail.com',
 }
 
 export const stack = [

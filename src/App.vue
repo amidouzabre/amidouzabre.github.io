@@ -41,7 +41,7 @@ function handleSubmit() {
   const body =
     `Nom : ${form.value.name}\nEmail : ${form.value.email}\n\nMessage :\n${form.value.message}`
 
-  window.location.assign(createComposeUrl(subject, body))
+  window.open(createComposeUrl(subject, body), '_blank', 'noopener,noreferrer')
 }
 </script>
 
